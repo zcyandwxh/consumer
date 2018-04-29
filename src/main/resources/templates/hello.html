@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<!--suppress ALL -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<!--/*@thymesVar id="name" type="java.lang.String"*/-->
+<p th:text="'Hello！, ' + ${name} + '!'" >3333</p>
+<a th:href="@{http://www.baidu.com}">百度</a>
+<a href="test">hrllo</a>
+<a th:href="@{test}">test</a>
+<span th:text="|Welcome to myhome ${name}|"></span>
+<span th:text="(${user.id}%2 == 0)?'1':'2'"></span>
+
+<table>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+    </tr>
+</table>
+
+<a th:href="@{/}">测试</a>
+<a th:href="@{/login}" th:if="${user != null}">登录</a>
+
+<div th:switch="${user.name}">
+    <p th:case="'admin'">admin</p>
+    <p th:case="abc">zhangsan</p>
+</div>
+
+<div>
+    <span th:text="${#dates.createNow()}"></span>
+    <span th:text="${#dates.format(#dates.createNow(), 'dd/MMM/yyyy HH:mm')}"></span>
+</div>
+
+<div>
+    <span th:text="${#strings.length('abcd')}"></span>
+</div>
+</body>
+</html>

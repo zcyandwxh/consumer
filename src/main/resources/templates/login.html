@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+      <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>星巴克咖啡后台</title>
+
+    <!-- BOOTSTRAP STYLES-->
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <!-- FONTAWESOME STYLES-->
+    <link th:href="@{/css/font-awesome.css}" rel="stylesheet" />
+    <!-- GOOGLE FONTS-->
+    <!--<link th:href='@{https://fonts.googleapis.com/css(family=${family})}' rel='stylesheet' type='text/css' />-->
+
+</head>
+<body style="background-color: #E2E2E2;">
+    <div th:class="container">
+        <div class="row text-center " style="padding-top:100px;">
+            <div th:class="col-md-12">
+                <img th:src="@{/img/logo-invoice.png}" />
+            </div>
+        </div>
+         <div th:class="row ">
+
+                <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
+
+                            <div th:class="panel-body">
+                                <form th:action="@{/login.htm}" method="post">
+                                    <hr />
+                                    <h5>Enter Details to Login</h5>
+                                       <br />
+                                     <div class="form-group input-group">
+                                            <span th:class="input-group-addon"><i class="fa fa-tag"  ></i></span>
+                                            <input th:type="text" th:class="form-control" id="name" name="name" placeholder="Your Username " />
+                                        </div>
+                                                                              <div class="form-group input-group">
+                                            <span th:class="input-group-addon"><i class="fa fa-lock"  ></i></span>
+                                            <input id="password" th:type="password" th:class="form-control" name="password" placeholder="Your Password" />
+                                        </div>
+                                    <div th:class="form-group">
+                                            <label th:class="checkbox-inline">
+                                                <input th:type="checkbox" /> Remember me
+                                            </label>
+                                            <span th:class="pull-right">
+                                                   <a href="index.html" >Forget password ? </a>
+                                            </span>
+                                        </div>
+
+                                    <input type="submit" class="btn btn-primary " value="Login Now"/>
+                                     <!--<a href="index.html" class="btn btn-primary ">Login Now</a>-->
+                                    <hr />
+                                    Not register ? <a href="index.html" >click here </a> or go to <a href="index.html">Home</a>
+                                    </form>
+                            </div>
+
+                        </div>
+
+
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<!--suppress ALL -->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro"
+>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>home</title>
+
+    <!-- BOOTSTRAP STYLES-->
+    <link th:href="@{css/bootstrap.css}" rel="stylesheet" />
+    <!-- FONTAWESOME STYLES-->
+    <link th:href="@{css/font-awesome.css}" rel="stylesheet" />
+       <!--CUSTOM BASIC STYLES-->
+    <link th:href="@{css/basic.css}" rel="stylesheet" />
+    <!--CUSTOM MAIN STYLES-->
+    <link th:href="@{css/custom.css}" rel="stylesheet" />
+    <!-- GOOGLE FONTS-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">星巴克物料采集系统</a>
+            </div>
+
+            <div class="header-right">
+
+                <a th:href="message-task.html" class="btn btn-info" title="New Message"><b>30 </b><i class="fa fa-envelope-o fa-2x"></i></a>
+                <a th:href="message-task.html" class="btn btn-primary" title="New Task"><b>40 </b><i class="fa fa-bars fa-2x"></i></a>
+                <a th:href="login.html" class="btn btn-danger" title="Logout"><i class="fa fa-exclamation-circle fa-2x"></i></a>
+
+            </div>
+        </nav>
+        <!-- /. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    <li>
+                        <div class="user-img-div">
+                            <div class="inner-text">
+                                <span th:text="${employee.name}"></span>
+                            <br />
+                                <small>Last Login : <span th:text="${employee.loginTime}"></span> </small>
+                            </div>
+                        </div>
+                    </li>
+
+
+                    <li>
+                        <a th:href="@{/login}" class="active-menu" href="#"><i class="fa fa-dashboard "></i>Dashboard</a>
+                    </li>
+                    <li th:each="entry : ${products.data}">
+                        <a href="#">
+                            <!--<i th:switch="${entry.key}">-->
+                                <!--<i th:case="${entry.key}" class="fa fa-desktop "></i>-->
+                            <!--</i>-->
+                            <span th:text="${entry.key}"></span> <span class="fa arrow"></span></a>
+                         <ul class="nav nav-second-level" th:each="value : ${entry.value}">
+                             <li>
+                             <a th:href="@{'production/product/' + ${value.id}}"><i class="fa fa-toggle-on"></i><span th:text="${value.product}"></span></a>
+                             </li>
+                         </ul>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper">
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="page-head-line"><input type="text" class="form-control" placeholder="搜索原料"/></h1>
+                    </div>
+                </div>
+                <!-- /. ROW  -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="main-box mb-red">
+                            <a href="#">
+                                <i class="fa fa-bolt fa-5x"></i>
+                                <h5>订单列表</h5>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="main-box mb-dull">
+                            <a href="#">
+                                <i class="fa fa-plug fa-5x"></i>
+                                <h5>权限列表</h5>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="main-box mb-pink">
+                            <a href="#">
+                                <i class="fa fa-dollar fa-5x"></i>
+                                <h5>经销商列表</h5>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /. ROW  -->
+
+                <div class="row">
+
+                        <hr />
+
+                        <div class="panel panel-default">
+
+                            <div id="carousel-example" class="carousel slide" data-ride="carousel" style="border: 5px solid #000;">
+
+                                <div class="carousel-inner">
+                                    <div class="item active">
+
+                                        <img src="/img/slideshow/1.jpg" alt="" />
+
+                                    </div>
+                                    <div class="item">
+                                        <img src="/img/slideshow/2.jpg" alt="" />
+
+                                    </div>
+                                    <div class="item">
+                                        <img src="/img/slideshow/3.jpg" alt="" />
+
+                                    </div>
+                                </div>
+                                <!--INDICATORS-->
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carousel-example" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carousel-example" data-slide-to="1"></li>
+                                    <li data-target="#carousel-example" data-slide-to="2"></li>
+                                </ol>
+                                <!--PREVIUS-NEXT BUTTONS-->
+                                <a class="left carousel-control" href="#carousel-example" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                </a>
+                                <a class="right carousel-control" href="#carousel-example" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-sec">
+        <a href="http://www.cssmoban.com/" target="_blank" title="模板之家星巴克物料采集系统"></a>
+    </div>
+
+    <script src="/js/jquery-1.10.2.js"></script>
+    <script th:src="@{/js/coffee.js}"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/jquery.metisMenu.js"></script>
+    <script src="/js/custom.js"></script>
+
+
+</body>
+</html>
