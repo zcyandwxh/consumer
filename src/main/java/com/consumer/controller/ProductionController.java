@@ -1,25 +1,36 @@
 package com.consumer.controller;
 
+import com.api.ESService;
+import com.consumer.adapter.SearchFacade;
 import com.consumer.bean.dto.*;
+import com.consumer.bean.form.OrderForm;
 import com.consumer.bean.form.PaymentForm;
+import com.consumer.bean.form.ShopCartForm;
 import com.consumer.bean.form.StockForm;
 import com.consumer.biz.BizResult;
 import com.consumer.biz.PageResult;
 import com.consumer.model.Employee;
 import com.consumer.model.PaymentRelation;
 import com.consumer.model.Product;
-import com.consumer.service.PaymentService;
-import com.consumer.service.ProductionService;
-import com.consumer.service.StockService;
+import com.consumer.model.ProductDetail;
+import com.consumer.service.*;
+import com.model.Condition;
+import com.model.Result;
+import com.model.SearchCondition;
+import com.model.SearchProductDTO;
 import com.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  *   
@@ -40,9 +51,15 @@ public class ProductionController {
     @Autowired
     private RedisUtil redisUtil;
     @Autowired
+    private ProviderService providerService;
+    @Autowired
     private StockService stockService;
     @Autowired
     private PaymentService paymentService;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private ESService searchFacade;
 
 //    @ModelAttribute
 //    public void setUser(Map<String, Employee> map){
@@ -66,6 +83,27 @@ public class ProductionController {
         return productDTOs;
     }
 
+    @RequestMapping(value = "searchProduct.htm", method = RequestMethod.POST)
+    public String searchProduct(String productName, ModelMap modelMap) {
+        SearchCondition searchCondition = new SearchCondition();
+        List<Condition> conditions = new ArrayList<>();
+        Condition condition = new Condition();
+        condition.setFileName("product");
+        condition.setText(productName);
+        conditions.add(condition);
+        searchCondition.setCondition(conditions);
+        Result<List<SearchProductDTO>> result = searchFacade.search(searchCondition);
+        List<SearchProductDTO> searchProductDTOS = null;
+        if (result != null) {
+            searchProductDTOS = result.getData();
+        }
+//        if (CollectionUtils.isEmpty(searchProductDTOS)) {
+//            providerService.selectBatchByIds(searchProductDTOS.stream().map(SearchProductDTO::));
+//        }
+        modelMap.addAttribute("searchProducts", result);
+        return "searchProduct";
+    }
+
     /**
      * 根据类别查看原料
      * @param kind
@@ -83,10 +121,15 @@ public class ProductionController {
             return "login";
         }
         BizResult<Map<String, List<Product>>> productDTOs = productionService.getProducts();
+        Product product = productionService.findProductNameByKind(kind);
+        if (!Objects.isNull(product)) {
+            modelMap.addAttribute("kind", product.getProduct());
+        }
         modelMap.addAttribute("products", productDTOs)
         .addAttribute("employee", redisUtil.getUser());
         BizResult<PageResult<List<ProductDTO>>> productDTOS = productionService.findProductByKind(kind, pageNo);
         if (productDTOS.getFlag()) {
+//            productDTOS.getData().getResult();
             modelMap.addAttribute("productDTOS", productDTOS.getData());
         }
         return "/material";
@@ -107,11 +150,20 @@ public class ProductionController {
     }
 
     /**
+     * 查询商品细节 (根据经销商和商品id确定某一个商品)
+     * @return
+     */
+    @RequestMapping("productDetail")
+    public BizResult<ProductDTO> findProductDetail(ProductDTO productDTO) {
+        return productionService.findProductDetail(productDTO);
+    }
+
+    /**
      * 将商品添加进购物车
      * @param productDTO
      * @return
      */
-    @RequestMapping("shopCart")
+    @RequestMapping(value = "shopCart", method = RequestMethod.POST)
     @ResponseBody
     public BizResult<Integer> addToShopCart(@RequestBody ProductDTO productDTO) {
         BizResult<Integer> products = productionService.addProduct(productDTO);
@@ -135,6 +187,15 @@ public class ProductionController {
         BizResult<List<ShopCartDTO>> shopCarts = productionService.findShopCart(employee.getId());
         modelMap.addAttribute("shopCarts", shopCarts);
         return "shopCart";
+    }
+
+    /**
+     * 下订单
+     */
+    @ResponseBody
+    @RequestMapping(value = "order/create", method = RequestMethod.POST)
+    public BizResult<String>  createOrder(@RequestBody List<Long> ids) {
+        return orderService.createOrder(ids);
     }
 
     /**
@@ -171,8 +232,8 @@ public class ProductionController {
         return "redirect:/page/shopCart";
     }
 
-    @RequestMapping("detail")
-    public BizResult<ProductDTO> productDetail(ProductDTO productDTO) {
-        return productionService.findProductDetail(productDTO.getId());
-    }
+//    @RequestMapping("detail")
+//    public BizResult<ProductDTO> productDetail(ProductDTO productDTO) {
+//        return productionService.findProductDetail(productDTO.getId());
+//    }
 }

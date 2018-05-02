@@ -13,6 +13,10 @@ public class ShopCart {
 
     private Long buyerId;
 
+    private Long providerId;
+
+    private String pictureUrl;
+
     public Long getId() {
         return id;
     }
@@ -51,5 +55,21 @@ public class ShopCart {
 
     public void setBuyerId(Long buyerId) {
         this.buyerId = buyerId;
+    }
+
+    public Long getProviderId() {
+        return providerId;
+    }
+
+    public void setProviderId(Long providerId) {
+        this.providerId = providerId;
+    }
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl == null ? null : pictureUrl.trim();
     }
 }

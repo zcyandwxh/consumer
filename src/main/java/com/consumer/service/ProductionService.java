@@ -56,9 +56,16 @@ public interface ProductionService {
 
     /**
      * 查询商品细节
-     * @param id
+     * @param
      * @return
      */
-    BizResult<ProductDTO> findProductDetail(Long id);
+    BizResult<ProductDTO> findProductDetail(ProductDTO productDTO);
+
+    /**
+     * 根据商品ID获得商品类别名称
+     * @param kind
+     * @return
+     */
+    Product findProductNameByKind(Long kind);
     // List<Coffee> findCoffees();
 }

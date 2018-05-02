@@ -1,6 +1,5 @@
 package com.consumer.manager;
 
-import com.consumer.bean.dto.OrderDTO;
 import com.consumer.bean.form.OrderForm;
 import com.consumer.model.Order;
 
@@ -21,4 +20,11 @@ public interface OrderManager {
      * @return
      */
     List<Order> findOrder(OrderForm orderForm);
+
+    /**
+     * 插入订单
+     * @param order
+     * @return
+     */
+    Integer insertOrder(Order order);
 }

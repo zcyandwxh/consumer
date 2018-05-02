@@ -1,24 +1,24 @@
 package com.consumer.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.consumer.bean.dto.PageParam;
 import com.consumer.bean.dto.ProductDTO;
 import com.consumer.bean.dto.ShopCartDTO;
 import com.consumer.biz.BizResult;
 import com.consumer.biz.PageResult;
 import com.consumer.manager.ProductionManager;
+import com.consumer.manager.ProviderManager;
 import com.consumer.manager.ShopCartManager;
 import com.consumer.model.Product;
+import com.consumer.model.ProductDetail;
+import com.consumer.model.Provider;
 import com.consumer.model.ShopCart;
 import com.consumer.service.ProductionService;
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIXDom;
 import com.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import sun.security.krb5.internal.PAData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +41,8 @@ public class ProductionServiceImpl implements ProductionService {
     private ProductionManager productionManager;
     @Autowired
     private ShopCartManager shopCartManager;
+    @Autowired
+    private ProviderManager providerManager;
 
     @Autowired
     private RedisUtil redisUtil;
@@ -109,8 +111,17 @@ public class ProductionServiceImpl implements ProductionService {
             return BizResult.create(null);
         }
         List<ShopCartDTO> shopCartDTOS = new ArrayList<>();
+
         list.stream().forEach((x) -> {
             ShopCartDTO shopCartDTO = new ShopCartDTO();
+            Product product = productionManager.findProductById(x.getProductId());
+            if (product != null) {
+                shopCartDTO.setProductName(product.getProduct());
+            }
+            Provider provider = providerManager.selectProviderById(x.getProviderId());
+            if (provider != null) {
+                shopCartDTO.setProviderName(provider.getProviderName());
+            }
             BeanUtils.copyProperties(x, shopCartDTO);
             shopCartDTOS.add(shopCartDTO);
         });
@@ -118,13 +129,18 @@ public class ProductionServiceImpl implements ProductionService {
     }
 
     @Override
-    public BizResult<ProductDTO> findProductDetail(Long id) {
-        Product product = productionManager.findProductById(id);
+    public BizResult<ProductDTO> findProductDetail(ProductDTO productDTO) {
+        ProductDetail product = productionManager.findProductByProviderIdAndProductId(productDTO);
         if (product == null) {
             BizResult.create(null);
         }
-        ProductDTO productDTO = new ProductDTO();
-        BeanUtils.copyProperties(product, productDTO);
-        return BizResult.create(productDTO);
+        ProductDTO productDTO1 = new ProductDTO();
+        BeanUtils.copyProperties(product, productDTO1);
+        return BizResult.create(productDTO1);
+    }
+
+    @Override
+    public Product findProductNameByKind(Long kind) {
+        return productionManager.findProductById(kind);
     }
 }

@@ -8,8 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-@Mapper
-@Repository
+@Mapper@Repository
 public interface ShopCartMapper {
     int countByExample(ShopCartExample example);
 

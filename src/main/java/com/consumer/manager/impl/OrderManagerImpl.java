@@ -1,11 +1,11 @@
 package com.consumer.manager.impl;
 
-import com.consumer.bean.dto.OrderDTO;
 import com.consumer.bean.form.OrderForm;
 import com.consumer.manager.OrderManager;
-import com.consumer.mapper.OrderMapper;
 import com.consumer.mapper.ext.OrderExtMapper;
+import com.consumer.model.Employee;
 import com.consumer.model.Order;
+import com.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,9 +25,20 @@ public class OrderManagerImpl implements OrderManager {
 
     @Autowired
     private OrderExtMapper orderMapper;
+    @Autowired
+    private RedisUtil redisUtils;
 
     @Override
     public List<Order> findOrder(OrderForm orderForm) {
         return orderMapper.selectOrderByPage(orderForm);
+    }
+
+    @Override
+    public Integer insertOrder(Order order) {
+        order.setStatus(1);
+        Employee employee = redisUtils.getUser();
+        order.setBuyerId(employee.getId());
+        order.setBuyerName(employee.getName());
+        return orderMapper.insertSelective(order);
     }
 }

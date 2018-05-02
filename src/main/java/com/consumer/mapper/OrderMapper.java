@@ -3,13 +3,8 @@ package com.consumer.mapper;
 import com.consumer.model.Order;
 import com.consumer.model.OrderExample;
 import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
-@Repository
-@Mapper
 public interface OrderMapper {
     int countByExample(OrderExample example);
 

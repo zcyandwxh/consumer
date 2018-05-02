@@ -21,6 +21,12 @@ public class OrderDTO implements Serializable {
 
     private String id;
 
+    private Long shopCartId;
+
+    private Long buyerId;
+
+    private String buyerName;
+
     private String provider;
 
     private String tradeId;
@@ -34,5 +40,7 @@ public class OrderDTO implements Serializable {
     private Date gmtModitied;
 
     private String products;
+
+    private Integer productNum;
 
 }

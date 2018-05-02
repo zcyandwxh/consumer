@@ -2,12 +2,14 @@ package com.consumer.manager.impl;
 
 import com.consumer.bean.dto.PageParam;
 import com.consumer.bean.dto.ProductDTO;
+import com.consumer.bean.dto.ProviderDTO;
 import com.consumer.biz.BizResult;
 import com.consumer.enums.KindEnum;
 import com.consumer.manager.ProductionManager;
 import com.consumer.mapper.ProductMapper;
 import com.consumer.mapper.ext.ProductExtMapper;
 import com.consumer.model.Product;
+import com.consumer.model.ProductDetail;
 import com.consumer.model.ProductExample;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -125,5 +127,15 @@ public class ProductionManagerImpl implements ProductionManager {
     @Override
     public Product findProductById(Long id) {
         return productExtMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public List<Product> findProductByIdS(List<Long> providerIds) {
+        return productExtMapper.selectBatchById(providerIds);
+    }
+
+    @Override
+    public ProductDetail findProductByProviderIdAndProductId(ProductDTO productDTO) {
+        return productExtMapper.selectProductDetail(productDTO);
     }
 }

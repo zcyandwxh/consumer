@@ -1,5 +1,6 @@
 package com.consumer.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Product {
@@ -11,7 +12,7 @@ public class Product {
 
     private Long parent;
 
-    private Date modityTime;
+    private LocalDateTime modityTime;
 
     public Long getId() {
         return id;
@@ -45,11 +46,11 @@ public class Product {
         this.parent = parent;
     }
 
-    public Date getModityTime() {
+    public LocalDateTime getModityTime() {
         return modityTime;
     }
 
-    public void setModityTime(Date modityTime) {
+    public void setModityTime(LocalDateTime modityTime) {
         this.modityTime = modityTime;
     }
 }

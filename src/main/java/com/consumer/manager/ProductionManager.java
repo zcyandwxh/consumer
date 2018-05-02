@@ -2,8 +2,10 @@ package com.consumer.manager;
 
 import com.consumer.bean.dto.PageParam;
 import com.consumer.bean.dto.ProductDTO;
+import com.consumer.bean.dto.ProviderDTO;
 import com.consumer.biz.BizResult;
 import com.consumer.model.Product;
+import com.consumer.model.ProductDetail;
 
 import java.util.List;
 import java.util.Map;
@@ -63,5 +65,18 @@ public interface ProductionManager {
      * @return
      */
     Product findProductById(Long id);
+
+    /**
+     * 根据商品ID批量查找
+     * @param providerIds
+     */
+    List<Product> findProductByIdS(List<Long> providerIds);
+
+    /**
+     * 根据商品id和经销商id确定一个商品
+     * @param productDTO
+     * @return
+     */
+    ProductDetail findProductByProviderIdAndProductId(ProductDTO productDTO);
     //List<Coffee> findCoffee();
 }

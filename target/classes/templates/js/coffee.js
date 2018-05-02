@@ -7,6 +7,7 @@ $(document).ready(function(){
         dataType: "json",
         success: function (data) {
             /*
+
              <li th:each="entry : ${products.data}">
              <a href="#">
              <!--<i th:switch="${entry.key}">-->

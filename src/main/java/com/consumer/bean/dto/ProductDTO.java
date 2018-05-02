@@ -32,7 +32,7 @@ public class ProductDTO extends PageParam implements Serializable {
     /**
      * 商品名称
      */
-    private String product;
+    private String productName;
 
     /**
      * 属于那一个商品类别
@@ -48,6 +48,11 @@ public class ProductDTO extends PageParam implements Serializable {
      * 经销商
      */
     private String provider;
+
+    /**
+     * jingxiaoshangid
+     */
+    private Long providerId;
 
     /**
      * 价格

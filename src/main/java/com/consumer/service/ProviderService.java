@@ -21,5 +21,26 @@ public interface ProviderService {
      * 查找所有的供应商
      * @return
      */
-    BizResult<List<ProviderDTO>> getProvider();
+    BizResult<List<ProviderDTO>> getProvider(String providerName);
+
+    /**
+     * 查找供应商的商品信息
+     * @param providerDTO
+     * @return
+     */
+    BizResult<ProviderDTO> selectProviderDetail(ProviderDTO providerDTO);
+
+    /**
+     * 删除供应商
+     * @param providerDTO
+     * @return
+     */
+    BizResult<Integer> deleteProvider(ProviderDTO providerDTO);
+
+    /**
+     * 新增供应商
+     * @param providerDTO
+     * @return
+     */
+    BizResult<Boolean> addProvider(ProviderDTO providerDTO);
 }

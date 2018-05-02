@@ -1,6 +1,5 @@
 package com.consumer.manager;
 
-import com.consumer.bean.dto.ProductDTO;
 import com.consumer.model.ShopCart;
 
 import java.util.List;
@@ -40,4 +39,11 @@ public interface ShopCartManager {
      * 根据购买者的id查询购物车内商品
      */
     List<ShopCart> selectByBuyerId(Long id);
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    ShopCart selectByShopCartId(Long id);
 }

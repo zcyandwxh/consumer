@@ -3,6 +3,7 @@ package com.consumer.bean.form;
 import com.consumer.bean.dto.PageParam;
 import lombok.Data;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  *   
@@ -23,7 +24,11 @@ public class OrderForm extends PageParam {
     /**
      * {供应商：{商品id:商品name}}
      */
-    private String provider;
+    private Long providerId;
+
+    private String providerName;
+
+    private List<Long> shopCarIds;
 
     private String tradeId;
 

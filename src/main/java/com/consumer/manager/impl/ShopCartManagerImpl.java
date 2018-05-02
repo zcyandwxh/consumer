@@ -1,6 +1,5 @@
 package com.consumer.manager.impl;
 
-import com.consumer.bean.dto.ProductDTO;
 import com.consumer.manager.ShopCartManager;
 import com.consumer.mapper.ShopCartMapper;
 import com.consumer.model.ShopCart;
@@ -52,5 +51,10 @@ public class ShopCartManagerImpl implements ShopCartManager{
         criteria.andBuyerIdEqualTo(id);
         List<ShopCart> shopCarts = shopCartMapper.selectByExample(shopCartExample);
         return shopCarts;
+    }
+
+    @Override
+    public ShopCart selectByShopCartId(Long id) {
+        return shopCartMapper.selectByPrimaryKey(id);
     }
 }

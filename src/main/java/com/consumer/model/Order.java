@@ -1,24 +1,22 @@
 package com.consumer.model;
 
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Order {
     private String id;
 
-    private String provider;
-
-    private String tradeId;
-
-    private Long num;
-
     private Integer status;
 
-    private LocalDateTime gmtCreate;
+    private Date gmtCreate;
 
-    private LocalDateTime gmtModitied;
+    private Date gmtModitied;
 
-    private String products;
+    private BigDecimal total;
+
+    private Long buyerId;
+
+    private String buyerName;
 
     public String getId() {
         return id;
@@ -26,30 +24,6 @@ public class Order {
 
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
-    }
-
-    public String getProvider() {
-        return provider;
-    }
-
-    public void setProvider(String provider) {
-        this.provider = provider == null ? null : provider.trim();
-    }
-
-    public String getTradeId() {
-        return tradeId;
-    }
-
-    public void setTradeId(String tradeId) {
-        this.tradeId = tradeId == null ? null : tradeId.trim();
-    }
-
-    public Long getNum() {
-        return num;
-    }
-
-    public void setNum(Long num) {
-        this.num = num;
     }
 
     public Integer getStatus() {
@@ -60,27 +34,43 @@ public class Order {
         this.status = status;
     }
 
-    public LocalDateTime getGmtCreate() {
+    public Date getGmtCreate() {
         return gmtCreate;
     }
 
-    public void setGmtCreate(LocalDateTime gmtCreate) {
+    public void setGmtCreate(Date gmtCreate) {
         this.gmtCreate = gmtCreate;
     }
 
-    public LocalDateTime getGmtModitied() {
+    public Date getGmtModitied() {
         return gmtModitied;
     }
 
-    public void setGmtModitied(LocalDateTime gmtModitied) {
+    public void setGmtModitied(Date gmtModitied) {
         this.gmtModitied = gmtModitied;
     }
 
-    public String getProducts() {
-        return products;
+    public BigDecimal getTotal() {
+        return total;
     }
 
-    public void setProducts(String products) {
-        this.products = products == null ? null : products.trim();
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public Long getBuyerId() {
+        return buyerId;
+    }
+
+    public void setBuyerId(Long buyerId) {
+        this.buyerId = buyerId;
+    }
+
+    public String getBuyerName() {
+        return buyerName;
+    }
+
+    public void setBuyerName(String buyerName) {
+        this.buyerName = buyerName == null ? null : buyerName.trim();
     }
 }

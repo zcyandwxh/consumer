@@ -53,9 +53,7 @@ public class LoginController {
      */
     @RequestMapping(value = "login.htm")
     public ModelAndView login(EmployeeDTO employeeDTO) {
-
         BizResult<EmployeeDTO> emp = new BizResult<>();
-
         ModelMap modelMap = new ModelMap();
         ModelAndView modelAndView = new ModelAndView();
         if (null == employeeDTO || null == employeeDTO.getName() || null == employeeDTO.getPassword()) {

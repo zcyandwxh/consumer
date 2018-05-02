@@ -8,14 +8,14 @@
 //     Default Panel
 // </div>
 $(document).ready(function(){
-    // $.ajax({
-    //     url:
-    //     dataType:
-    //     success:function(){
-    //
-    //     }
-    // })
-    // $("<div></div>").addClass("panel-body").append("")
+    $.ajax({
+        url:"",
+        dataType:"json",
+        success:function(){
+
+        }
+    })
+    $("<div></div>").addClass("panel-body").append("")
 })
 // <div class="panel-body">
 //     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
